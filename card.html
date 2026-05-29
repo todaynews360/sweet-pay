@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Card — Sweet Pay</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/card.css"/>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="cnav">
+    <div class="cnav__inner">
+      <a href="index.html" class="cnav__logo">
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="url(#nl)"/><path d="M10 16.5C10 13.462 12.462 11 15.5 11H19a3 3 0 010 6h-3.5a1.5 1.5 0 000 3H19" stroke="#fff" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="nl" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs></svg>
+        Sweet<strong>Pay</strong>
+      </a>
+      <div class="cnav__user" id="nav-user">
+        <div class="cnav__avatar" id="nav-avatar"></div>
+        <span id="nav-name"></span>
+        <button class="cnav__logout" id="logout-btn" title="Sign out">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 14H3a1 1 0 01-1-1V3a1 1 0 011-1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sign out
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="cmain">
+    <div class="cmain__container">
+
+      <!-- Greeting -->
+      <div class="greeting">
+        <div>
+          <h1 class="greeting__title">Hello, <span id="greeting-name" class="g-text"></span></h1>
+          <p class="greeting__sub">Your Sweet Pay virtual card is ready below.</p>
+        </div>
+        <div class="greeting__badge" id="status-badge">
+          <span class="gbadge gbadge--pending" id="card-status-badge">
+            <span class="gbadge__dot"></span> Inactive — Activation Required
+          </span>
+        </div>
+      </div>
+
+      <div class="card-layout">
+
+        <!-- LEFT: Card + Details -->
+        <div class="card-left">
+
+          <!-- Virtual Card -->
+          <div class="vcard" id="vcard">
+            <div class="vcard__shine"></div>
+            <div class="vcard__top">
+              <div class="vcard__brand">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="url(#cl)"/><path d="M10 16.5C10 13.462 12.462 11 15.5 11H19a3 3 0 010 6h-3.5a1.5 1.5 0 000 3H19" stroke="#fff" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="cl" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs></svg>
+                <span>Sweet<strong>Pay</strong></span>
+              </div>
+              <span class="vcard__type-label">VIRTUAL CARD</span>
+            </div>
+            <div class="vcard__chip">
+              <svg width="38" height="28" viewBox="0 0 36 28" fill="none"><rect width="36" height="28" rx="4" fill="#d4a847"/><rect x="13" y="0" width="10" height="28" fill="#c49535" opacity=".5"/><rect x="0" y="9" width="36" height="10" fill="#c49535" opacity=".5"/><rect x="13" y="9" width="10" height="10" rx="2" fill="#b8892e"/></svg>
+            </div>
+            <div class="vcard__number" id="card-number">•••• •••• •••• ••••</div>
+            <div class="vcard__bottom">
+              <div class="vcard__field">
+                <div class="vcard__label">Card Holder</div>
+                <div class="vcard__val" id="card-holder">—</div>
+              </div>
+              <div class="vcard__field">
+                <div class="vcard__label">Expires</div>
+                <div class="vcard__val" id="card-expiry">—</div>
+              </div>
+              <svg width="44" height="28" viewBox="0 0 42 26" fill="none"><circle cx="16" cy="13" r="13" fill="#eb001b" opacity=".9"/><circle cx="26" cy="13" r="13" fill="#f79e1b" opacity=".9"/></svg>
+            </div>
+            <!-- Inactive overlay -->
+            <div class="vcard__overlay" id="card-overlay">
+              <div class="vcard__overlay-icon">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="6" y="16" width="24" height="16" rx="3" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/><path d="M11 16v-5a7 7 0 0114 0v5" stroke="rgba(255,255,255,.35)" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="24" r="2.5" fill="rgba(255,255,255,.4)"/></svg>
+              </div>
+              <span>Inactive</span>
+            </div>
+          </div>
+
+          <!-- Card info -->
+          <div class="card-info-grid">
+            <div class="cig-item">
+              <span class="cig-label">Card Number</span>
+              <span class="cig-val" id="info-number">—</span>
+            </div>
+            <div class="cig-item">
+              <span class="cig-label">Card Type</span>
+              <span class="cig-val">Virtual Mastercard</span>
+            </div>
+            <div class="cig-item">
+              <span class="cig-label">Currency</span>
+              <span class="cig-val">SWP / USD</span>
+            </div>
+            <div class="cig-item">
+              <span class="cig-label">Status</span>
+              <span class="cig-val cig-val--pending" id="info-status">Inactive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Activation Panel -->
+        <div class="card-right">
+          <div class="activation-panel" id="activation-panel">
+            <div class="ap-header">
+              <div class="ap-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <h2 class="ap-title">Activate Your Card</h2>
+                <p class="ap-sub">One-time activation to unlock all features</p>
+              </div>
+            </div>
+
+            <div class="ap-price">
+              <span class="ap-price__label">Activation Fee</span>
+              <div class="ap-price__right">
+                <span class="ap-price__amount">$6.99</span>
+                <span class="ap-price__note">one-time · no recurring</span>
+              </div>
+            </div>
+
+            <div class="ap-includes">
+              <div class="ap-includes__label">What's included</div>
+              <div class="ap-includes__list">
+                <div class="ap-inc-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(16,185,129,.15)"/><path d="M5 8l2 2 4-4" stroke="#10b981" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Full card activation</div>
+                <div class="ap-inc-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(16,185,129,.15)"/><path d="M5 8l2 2 4-4" stroke="#10b981" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> SWC → SWP exchange</div>
+                <div class="ap-inc-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(16,185,129,.15)"/><path d="M5 8l2 2 4-4" stroke="#10b981" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Online payments support</div>
+                <div class="ap-inc-item"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(16,185,129,.15)"/><path d="M5 8l2 2 4-4" stroke="#10b981" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority support</div>
+              </div>
+            </div>
+
+            <!-- Payment method selector -->
+            <div class="ap-section-label">Choose payment method</div>
+            <div class="ap-methods">
+              <button class="apm-btn" id="btn-flexi" onclick="selectMethod('flexi')">
+                <div class="apm-icon apm-icon--flexi">F</div>
+                <div class="apm-info">
+                  <span class="apm-name">Flexi</span>
+                  <span class="apm-sub">بريد الجزائر</span>
+                </div>
+                <div class="apm-check" id="chk-flexi"></div>
+              </button>
+              <button class="apm-btn" id="btn-baridi" onclick="selectMethod('baridi')">
+                <div class="apm-icon apm-icon--baridi">B</div>
+                <div class="apm-info">
+                  <span class="apm-name">BaridiMob</span>
+                  <span class="apm-sub">بريد موب</span>
+                </div>
+                <div class="apm-check" id="chk-baridi"></div>
+              </button>
+            </div>
+
+            <!-- Payment instructions (shown after selection) -->
+            <div class="ap-instructions" id="ap-instructions" hidden>
+              <div class="api-header" id="api-header"></div>
+              <div class="api-amount">
+                <span>Amount to send</span>
+                <strong id="api-amount-val"></strong>
+              </div>
+              <div class="api-accounts" id="api-accounts"></div>
+              <p class="api-note" id="api-note"></p>
+            </div>
+
+            <button class="ap-confirm-btn" id="ap-confirm-btn" hidden onclick="confirmPayment()">
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span id="confirm-btn-text">I've Sent the Payment — Activate My Card</span>
+            </button>
+
+            <div class="ap-security">
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1.5l5 2v4.5c0 3-5 6.5-5 6.5S3 11 3 8V3.5l5-2z" stroke="currentColor" stroke-width="1.2"/></svg>
+              Your card details are secured with 256-bit encryption. Activation is processed within 30 minutes.
+            </div>
+          </div>
+
+          <!-- Activated state (hidden by default) -->
+          <div class="activated-panel" id="activated-panel" hidden>
+            <div class="act-icon">
+              <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="26" fill="url(#aclg)"/><path d="M16 26l7 7 13-14" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="aclg" x1="0" y1="0" x2="52" y2="52" gradientUnits="userSpaceOnUse"><stop stop-color="#10b981"/><stop offset="1" stop-color="#059669"/></linearGradient></defs></svg>
+            </div>
+            <h2>Card Activated!</h2>
+            <p>Your Sweet Pay virtual card is active and ready to use for SweetCoin exchanges and online payments.</p>
+            <a href="index.html" class="act-btn">Go to Exchange</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+  /* ── Session check ── */
+  const session = JSON.parse(localStorage.getItem('sp_session') || 'null');
+  if (!session) { location.href = 'login.html'; }
+
+  /* ── Fill UI ── */
+  const firstName = session ? session.name.split(' ')[0] : '';
+  const initials = session ? session.name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase() : '';
+  const expiry = (() => { const d = new Date(); d.setFullYear(d.getFullYear()+3); return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getFullYear()).slice(-2)}`; })();
+
+  if (session) {
+    document.getElementById('greeting-name').textContent = firstName;
+    document.getElementById('nav-name').textContent = session.name;
+    document.getElementById('nav-avatar').textContent = initials;
+    document.getElementById('card-number').textContent = session.cardNum || '•••• •••• •••• ••••';
+    document.getElementById('card-holder').textContent = session.name.toUpperCase();
+    document.getElementById('card-expiry').textContent = expiry;
+    document.getElementById('info-number').textContent = session.cardNum || '—';
+
+    if (session.cardActivated) {
+      document.getElementById('card-overlay').hidden = true;
+      document.getElementById('vcard').classList.add('vcard--active');
+      document.getElementById('card-status-badge').className = 'gbadge gbadge--active';
+      document.getElementById('card-status-badge').innerHTML = '<span class="gbadge__dot"></span> Active';
+      document.getElementById('info-status').textContent = 'Active';
+      document.getElementById('info-status').className = 'cig-val cig-val--active';
+      document.getElementById('activation-panel').hidden = true;
+      document.getElementById('activated-panel').hidden = false;
+    }
+  }
+
+  /* ── Logout ── */
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('sp_session');
+    location.href = 'index.html';
+  });
+
+  /* ── Payment method selection ── */
+  const methods = {
+    flexi: {
+      header: '<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#f59e0b" stroke-width="1.4"/><path d="M6.5 10l2.5 2.5 5-5" stroke="#f59e0b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> How to pay via <strong>Flexi</strong>',
+      amount: '1,050 DZD (~$6.99)',
+      accounts: [
+        { label: 'CCP Account', value: 'تضاف لاحقاً — سيتم التحديث قريباً' },
+        { label: 'Account Name', value: 'Sweet Pay DZ' },
+      ],
+      note: 'After completing the transfer, click the button below. Your card will be activated within 30 minutes.'
+    },
+    baridi: {
+      header: '<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#f59e0b" stroke-width="1.4"/><path d="M6.5 10l2.5 2.5 5-5" stroke="#f59e0b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> How to pay via <strong>BaridiMob</strong>',
+      amount: '1,050 DZD (~$6.99)',
+      accounts: [
+        { label: 'RIP Number', value: 'تضاف لاحقاً — سيتم التحديث قريباً' },
+        { label: 'Account Name', value: 'Sweet Pay DZ' },
+      ],
+      note: 'Open BaridiMob → Transfer → By RIP, then send the amount above. After sending, click the button below.'
+    }
+  };
+
+  let selectedMethod = null;
+
+  window.selectMethod = function(m) {
+    selectedMethod = m;
+    ['flexi','baridi'].forEach(k => {
+      document.getElementById(`btn-${k}`).classList.toggle('active', k === m);
+      document.getElementById(`chk-${k}`).innerHTML = k === m
+        ? '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="#f59e0b"/><path d="M4.5 8l2.5 2.5 5-5" stroke="#0a0700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+        : '';
+    });
+    const data = methods[m];
+    document.getElementById('api-header').innerHTML = data.header;
+    document.getElementById('api-amount-val').textContent = data.amount;
+    document.getElementById('api-accounts').innerHTML = data.accounts.map(a =>
+      `<div class="api-acc"><span class="api-acc__label">${a.label}</span><span class="api-acc__val">${a.value}</span></div>`
+    ).join('');
+    document.getElementById('api-note').textContent = data.note;
+    document.getElementById('ap-instructions').hidden = false;
+    document.getElementById('ap-confirm-btn').hidden = false;
+  };
+
+  window.confirmPayment = function() {
+    const btn = document.getElementById('ap-confirm-btn');
+    const txt = document.getElementById('confirm-btn-text');
+    txt.textContent = 'Verifying payment…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    setTimeout(() => {
+      showToast('Payment received! Your card will be activated within 30 minutes.');
+      btn.textContent = 'Pending verification…';
+    }, 1500);
+  };
+
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.className = 'sp-toast';
+    t.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#10b981"/><path d="M6 10l3 3 5-6" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>${msg}</span>`;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('sp-toast--show'));
+    setTimeout(() => { t.classList.remove('sp-toast--show'); setTimeout(() => t.remove(), 400); }, 5000);
+  }
+  </script>
+</body>
+</html>
