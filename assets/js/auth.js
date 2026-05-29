@@ -106,6 +106,12 @@
     return Array.from({ length: 4 }, () => Math.floor(1000 + Math.random() * 9000)).join(' ');
   }
 
+  /* ══════════════ LOGIN CAPTCHA ══════════════ */
+  let loginCaptcha = null;
+  if (document.getElementById('captcha-q')) {
+    loginCaptcha = SweetCaptcha('captcha-q', 'captcha-refresh');
+  }
+
   /* ══════════════ LOGIN ══════════════ */
   const loginForm = document.getElementById('login-form');
   if (loginForm) {
@@ -124,6 +130,10 @@
         markErr('email-wrap','email-err','Enter a valid email address.'); ok = false;
       }
       if (!pw) { markErr('pass-wrap','pass-err','Password is required.'); ok = false; }
+
+      /* Validate CAPTCHA */
+      if (loginCaptcha && !loginCaptcha.verify('captcha-input', 'captcha-err')) ok = false;
+
       if (!ok) return;
 
       setLoading(true);
