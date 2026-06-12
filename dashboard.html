@@ -359,11 +359,11 @@
             <div class="chip"></div>
             <div class="vcard-brand">Sweet Pay<span>Virtual Card</span></div>
           </div>
-          <div class="vcard-number">
-            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-            <div class="last4" id="last4">••••</div>
+          <div class="vcard-number" id="cardNumber">
+            <span>••••</span>
+            <span>••••</span>
+            <span>••••</span>
+            <span>••••</span>
           </div>
           <div class="vcard-bottom">
             <div class="vcard-info-left">
@@ -498,10 +498,12 @@
   </main>
 </div>
 <script>
+const CARD_PARTS = ['5412', '7539', '8821', '7384'];
 let revealed = false;
 function toggleCard() {
   revealed = !revealed;
-  document.getElementById('last4').textContent  = revealed ? '7384' : '••••';
+  const spans = document.querySelectorAll('#cardNumber span');
+  spans.forEach((s, i) => s.textContent = revealed ? CARD_PARTS[i] : '••••');
   document.getElementById('expiry').textContent = revealed ? '29/02' : '••/••';
   document.getElementById('cvv').textContent    = revealed ? '469'   : '•••';
   document.getElementById('expiry').classList.toggle('masked', !revealed);
