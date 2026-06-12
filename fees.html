@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Pay – رسوم التحويل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--gold:#f5c842;--gold-light:#fde68a;--dark:#0a0a14;--purple:#6c3de8;--purple2:#8b5cf6;--text:#e8e8f0;--muted:#7b7b9a;--border:rgba(255,255,255,0.07)}
+  html,body{min-height:100%;font-family:'Cairo',sans-serif;background:var(--dark);color:var(--text)}
+  .bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(108,61,232,0.3) 0%,transparent 70%),linear-gradient(135deg,#0a0a14 0%,#111122 100%)}
+  .grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(108,61,232,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(108,61,232,0.03) 1px,transparent 1px);background-size:60px 60px}
+  .wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:48px 24px}
+
+  /* Header */
+  .header{text-align:center;margin-bottom:40px}
+  .logo-row{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px}
+  .logo-ico{width:42px;height:42px;background:linear-gradient(135deg,var(--purple),var(--gold));border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .logo-ico svg{width:22px;height:22px;fill:#fff}
+  .logo-text{font-size:20px;font-weight:900;background:linear-gradient(90deg,#fff,var(--gold-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .page-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px}
+  .page-sub{font-size:14px;color:var(--muted);line-height:1.6}
+
+  /* Alert */
+  .fee-alert{background:linear-gradient(135deg,rgba(245,200,66,0.1),rgba(245,200,66,0.05));border:1px solid rgba(245,200,66,0.3);border-radius:16px;padding:22px 24px;margin-bottom:28px;display:flex;gap:14px;align-items:flex-start}
+  .fee-alert-icon{width:44px;height:44px;background:rgba(245,200,66,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .fee-alert-icon svg{width:22px;height:22px;stroke:#f5c842;fill:none;stroke-width:2}
+  .fee-alert-title{font-size:16px;font-weight:800;color:#fde68a;margin-bottom:6px}
+  .fee-alert-text{font-size:14px;color:#fbbf24;line-height:1.8}
+  .fee-alert-text strong{color:#fff;font-size:18px}
+
+  /* Cards */
+  .section{background:rgba(16,16,30,0.85);border:1px solid var(--border);border-radius:18px;padding:26px;margin-bottom:20px}
+  .section-title{font-size:16px;font-weight:800;color:#fff;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .section-title svg{width:18px;height:18px;stroke:var(--purple2);fill:none;stroke-width:2}
+
+  .fee-table{width:100%;border-collapse:collapse}
+  .fee-table th{text-align:right;font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:0 0 12px;border-bottom:1px solid var(--border)}
+  .fee-table th:last-child{text-align:left}
+  .fee-table td{padding:13px 0;font-size:14px;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+  .fee-table td:last-child{text-align:left;font-weight:700;color:#fff}
+  .fee-table tr:last-child td{border-bottom:none}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+  .badge.required{background:rgba(239,68,68,0.15);color:#f87171}
+  .badge.optional{background:rgba(16,185,129,0.15);color:#34d399}
+
+  .step-list{list-style:none;counter-reset:steps}
+  .step-item{counter-increment:steps;display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+  .step-item:last-child{border-bottom:none}
+  .step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0}
+  .step-body h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+  .step-body p{font-size:13px;color:var(--muted);line-height:1.6}
+
+  .note-box{background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);border-radius:12px;padding:14px 18px;margin-top:16px;font-size:13px;color:#93c5fd;line-height:1.7}
+  .note-box strong{color:#fff}
+
+  /* Support */
+  .support-card{background:linear-gradient(135deg,rgba(108,61,232,0.15),rgba(139,92,246,0.08));border:1px solid rgba(139,92,246,0.25);border-radius:18px;padding:28px;text-align:center;margin-bottom:20px}
+  .support-card h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:8px}
+  .support-card p{font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.6}
+  .btn-mail{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--purple),var(--purple2));border:none;border-radius:12px;color:#fff;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;padding:13px 28px;text-decoration:none;transition:transform .15s;box-shadow:0 6px 20px rgba(108,61,232,0.4)}
+  .btn-mail:hover{transform:translateY(-2px)}
+  .btn-mail svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+
+  .back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;margin-bottom:24px;transition:color .2s}
+  .back-btn:hover{color:var(--gold)}
+  .back-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+  @media(max-width:600px){.wrap{padding:28px 16px}.fee-alert{flex-direction:column;gap:10px}.page-title{font-size:22px}}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="grid"></div>
+<div class="wrap">
+
+  <a href="javascript:window.close()" class="back-btn">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    إغلاق هذه الصفحة
+  </a>
+
+  <div class="header">
+    <div class="logo-row">
+      <div class="logo-ico"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.93V18h-2v-1.07C9.06 16.54 7.5 14.93 7.5 13c0-.55.45-1 1-1s1 .45 1 1c0 1.1.9 2 2 2s2-.9 2-2c0-1.08-.73-1.56-2.5-2.08C8.56 10.22 7.5 9.12 7.5 7.5c0-1.93 1.56-3.54 3.5-3.93V2.5h2v1.07C14.94 3.96 16.5 5.57 16.5 7.5c0 .55-.45 1-1 1s-1-.45-1-1c0-1.1-.9-2-2-2s-2 .9-2 2c0 .79.47 1.26 2.5 1.92C15.44 10.28 16.5 11.38 16.5 13c0 1.93-1.56 3.54-3.5 3.93z"/></svg></div>
+      <span class="logo-text">Sweet Pay</span>
+    </div>
+    <h1 class="page-title">رسوم التحويل</h1>
+    <p class="page-sub">كل ما تحتاج معرفته حول رسوم التحويل وشروط الإيداع في منصة Sweet Pay</p>
+  </div>
+
+  <!-- Main fee alert -->
+  <div class="fee-alert">
+    <div class="fee-alert-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+    <div>
+      <div class="fee-alert-title">رسوم التحويل الإلزامية</div>
+      <div class="fee-alert-text">
+        يجب عليك إيداع <strong>$5</strong> أو أكثر لإتمام عملية التحويل.<br>
+        هذا المبلغ يُعدّ <strong>رسوم التحويل الخاصة بشركة Sweet Pay</strong> ولا يُردّ بعد المعالجة.
+      </div>
+    </div>
+  </div>
+
+  <!-- Fee table -->
+  <div class="section">
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      جدول الرسوم
+    </div>
+    <table class="fee-table">
+      <thead>
+        <tr>
+          <th>نوع الرسوم</th>
+          <th>الوصف</th>
+          <th>المبلغ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>رسوم التحويل الأساسية <span class="badge required">إلزامي</span></td>
+          <td style="color:var(--muted);font-size:13px">تُطبَّق على كل عملية تحويل</td>
+          <td>$5.00</td>
+        </tr>
+        <tr>
+          <td>رسوم الإيداع الأدنى <span class="badge required">إلزامي</span></td>
+          <td style="color:var(--muted);font-size:13px">الحد الأدنى للإيداع في البطاقة</td>
+          <td>$10.00</td>
+        </tr>
+        <tr>
+          <td>رسوم المعالجة الدولية <span class="badge optional">اختياري</span></td>
+          <td style="color:var(--muted);font-size:13px">للتحويلات خارج المنطقة العربية</td>
+          <td>1.5%</td>
+        </tr>
+        <tr>
+          <td>رسوم تحويل العملة <span class="badge optional">اختياري</span></td>
+          <td style="color:var(--muted);font-size:13px">عند التحويل لعملة غير الدولار</td>
+          <td>$0.50</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Steps -->
+  <div class="section">
+    <div class="section-title">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      خطوات إتمام التحويل
+    </div>
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>تعبئة نموذج التحويل</h4>
+          <p>أدخل اسمك الكامل، رقم هاتفك، اسم حساب Sweet Coins، وعدد النقاط المراد تحويلها (200 نقطة كحد أدنى).</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>إيداع رسوم التحويل</h4>
+          <p>قم بإيداع مبلغ لا يقل عن <strong style="color:#fff">$5</strong> كرسوم تحويل، ومبلغ لا يقل عن <strong style="color:#fff">$10</strong> كحد أدنى للإيداع في بطاقتك الافتراضية.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>معالجة الطلب</h4>
+          <p>يتم معالجة طلبك خلال 24 إلى 72 ساعة من الاستلام. ستتلقى إشعاراً فور اكتمال العملية.</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>استلام الأموال</h4>
+          <p>تُحوَّل نقاطك إلى المبلغ المحدد وتُودَع مباشرة في بطاقتك الافتراضية Sweet Pay.</p>
+        </div>
+      </li>
+    </ul>
+    <div class="note-box">
+      <strong>ملاحظة:</strong> رسوم التحويل لا تُردّ بعد بدء المعالجة. تأكد من صحة جميع المعلومات قبل إرسال الطلب. في حالة وجود أي مشكلة تواصل مع فريق الدعم على <strong>sweetpay@org</strong>
+    </div>
+  </div>
+
+  <!-- Support -->
+  <div class="support-card">
+    <h3>هل تحتاج مساعدة؟</h3>
+    <p>فريق دعم Sweet Pay متاح 24/7 للإجابة على جميع استفساراتك المتعلقة برسوم التحويل والمدفوعات.</p>
+    <a href="mailto:sweetpay@org" class="btn-mail">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      تواصل مع الدعم — sweetpay@org
+    </a>
+  </div>
+
+</div>
+</body>
+</html>
