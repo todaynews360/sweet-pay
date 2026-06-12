@@ -86,33 +86,105 @@
   /* Content */
   .content { padding: 28px; }
 
-  /* ALERT BANNER - NOT ACTIVATED */
+  /* SUCCESS BANNER */
   .alert-banner {
-    background: linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(220,38,38,0.08) 100%);
-    border: 1px solid rgba(239,68,68,0.3);
+    background: linear-gradient(135deg, rgba(16,185,129,0.13) 0%, rgba(5,150,105,0.07) 100%);
+    border: 1px solid rgba(16,185,129,0.35);
     border-radius: 16px;
     padding: 20px 24px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     display: flex; align-items: flex-start; gap: 16px;
     position: relative; overflow: hidden;
-    animation: pulse-border 3s ease-in-out infinite;
+    animation: pulse-green 3s ease-in-out infinite;
   }
-  @keyframes pulse-border {
-    0%,100%{border-color:rgba(239,68,68,0.3)}
-    50%{border-color:rgba(239,68,68,0.6)}
+  @keyframes pulse-green {
+    0%,100%{border-color:rgba(16,185,129,0.35)}
+    50%{border-color:rgba(16,185,129,0.65)}
   }
   .alert-banner::before {
     content: ''; position: absolute; top: 0; right: 0;
     width: 180px; height: 100%;
-    background: radial-gradient(ellipse at top right, rgba(239,68,68,0.12), transparent 70%);
+    background: radial-gradient(ellipse at top right, rgba(16,185,129,0.1), transparent 70%);
   }
-  .alert-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(239,68,68,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .alert-icon svg { width: 22px; height: 22px; stroke: #f87171; fill: none; stroke-width: 2; }
+  .alert-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(16,185,129,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .alert-icon svg { width: 22px; height: 22px; stroke: #34d399; fill: none; stroke-width: 2.5; }
   .alert-body { flex: 1; }
-  .alert-title { font-size: 16px; font-weight: 800; color: #fca5a5; margin-bottom: 6px; }
-  .alert-text { font-size: 13px; color: #f87171; line-height: 1.7; }
+  .alert-title { font-size: 16px; font-weight: 800; color: #6ee7b7; margin-bottom: 6px; }
+  .alert-text { font-size: 13px; color: #a7f3d0; line-height: 1.7; }
   .alert-text a { color: var(--gold); text-decoration: none; font-weight: 600; }
-  .alert-text a:hover { text-decoration: underline; }
+
+  /* VIRTUAL CARD */
+  .card-section { margin-bottom: 24px; }
+  .card-section-title { font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .card-section-title svg { width: 15px; height: 15px; stroke: var(--muted); fill: none; stroke-width: 2; }
+
+  .vcard {
+    position: relative;
+    width: 100%; max-width: 400px;
+    aspect-ratio: 1.586;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #1a0a3e 0%, #2d1260 40%, #1e0a5c 70%, #0f0630 100%);
+    box-shadow: 0 20px 60px rgba(108,61,232,0.5), 0 8px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    overflow: hidden;
+    padding: 24px 26px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    user-select: none;
+  }
+  .vcard::before {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,200,66,0.18) 0%, transparent 70%);
+  }
+  .vcard::after {
+    content: '';
+    position: absolute; bottom: -80px; left: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%);
+  }
+  .vcard-top { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 1; }
+  .vcard-brand { font-size: 15px; font-weight: 900; letter-spacing: 1px; color: #fff; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.2; }
+  .vcard-brand span { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+  .chip { width: 36px; height: 28px; border-radius: 5px; background: linear-gradient(135deg, #d4a843 0%, #f5c842 50%, #c9991f 100%); box-shadow: 0 2px 8px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+  .chip::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,0.25); }
+  .chip::after { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: rgba(0,0,0,0.2); }
+
+  .vcard-number { position: relative; z-index: 1; font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.9); letter-spacing: 3px; font-family: monospace; display: flex; gap: 14px; align-items: center; }
+  .vcard-number .dot-group { display: flex; gap: 3px; }
+  .vcard-number .dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.7); }
+  .vcard-number .last4 { letter-spacing: 3px; }
+
+  .vcard-bottom { display: flex; align-items: flex-end; justify-content: space-between; position: relative; z-index: 1; }
+  .vcard-info-left {}
+  .vcard-label { font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .vcard-value { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: 1px; }
+  .vcard-value.masked { letter-spacing: 4px; color: rgba(255,255,255,0.6); }
+  .vcard-expiry { text-align: center; }
+  .vcard-cvv { text-align: left; }
+
+  .vcard-network { position: relative; z-index: 1; display: flex; gap: -6px; }
+  .circle-r, .circle-l { width: 28px; height: 28px; border-radius: 50%; opacity: 0.9; }
+  .circle-r { background: #eb001b; margin-right: -10px; }
+  .circle-l { background: #f79e1b; }
+
+  .show-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 600;
+    padding: 6px 10px; cursor: pointer; margin-top: 10px; transition: all 0.2s;
+    font-family: 'Cairo', sans-serif;
+  }
+  .show-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .show-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  @media(max-width:500px){
+    .vcard { padding: 18px 18px; border-radius: 16px; }
+    .vcard-number { font-size: 13px; gap: 10px; }
+    .vcard-number .dot { width: 6px; height: 6px; }
+    .vcard-brand { font-size: 13px; }
+  }
 
   /* Stats */
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
@@ -265,19 +337,57 @@
 
     <div class="content">
 
-      <!-- ALERT: NOT ACTIVATED -->
+      <!-- SUCCESS BANNER -->
       <div class="alert-banner">
         <div class="alert-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
         <div class="alert-body">
-          <div class="alert-title">❌ تم رفض طلب بطاقتك</div>
-          <div class="alert-text">
-            لم يتم قبول الطلب بسبب عدم وضوح صورة البطاقة المُرسَلة.
-            يرجى إعادة إرسال المعلومات بشكل واضح مع التأكد من أن صورة البطاقة واضحة تماماً.
-            للتواصل مع الدعم: <a href="mailto:sweetpay@email.org">sweetpay@email.org</a>
+          <div class="alert-title">✅ تم تفعيل الحساب بنجاح — مبروك!</div>
+          <div class="alert-text">حسابك مفعّل وبطاقتك جاهزة للاستخدام. يمكنك الآن تحويل نقاطك والاستفادة من جميع خدمات Sweet Pay.</div>
+        </div>
+      </div>
+
+      <!-- VIRTUAL CARD -->
+      <div class="card-section">
+        <div class="card-section-title">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          بطاقتك الافتراضية
+        </div>
+        <div class="vcard">
+          <div class="vcard-top">
+            <div class="chip"></div>
+            <div class="vcard-brand">Sweet Pay<span>Virtual Card</span></div>
+          </div>
+          <div class="vcard-number">
+            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <div class="dot-group"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            <div class="last4" id="last4">••••</div>
+          </div>
+          <div class="vcard-bottom">
+            <div class="vcard-info-left">
+              <div class="vcard-label">Card Holder</div>
+              <div class="vcard-value">WISSAL TOUATI</div>
+            </div>
+            <div class="vcard-expiry">
+              <div class="vcard-label">Expires</div>
+              <div class="vcard-value masked" id="expiry">••/••</div>
+            </div>
+            <div class="vcard-cvv">
+              <div class="vcard-label">CVV</div>
+              <div class="vcard-value masked" id="cvv">•••</div>
+            </div>
+            <div class="vcard-network">
+              <div class="circle-r"></div>
+              <div class="circle-l"></div>
+            </div>
           </div>
         </div>
+        <button class="show-btn" id="showBtn" onclick="toggleCard()">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          إظهار المعلومات
+        </button>
       </div>
 
       <!-- Stats -->
@@ -387,5 +497,20 @@
     </div>
   </main>
 </div>
+<script>
+let revealed = false;
+function toggleCard() {
+  revealed = !revealed;
+  document.getElementById('last4').textContent  = revealed ? '7384' : '••••';
+  document.getElementById('expiry').textContent = revealed ? '29/02' : '••/••';
+  document.getElementById('cvv').textContent    = revealed ? '469'   : '•••';
+  document.getElementById('expiry').classList.toggle('masked', !revealed);
+  document.getElementById('cvv').classList.toggle('masked', !revealed);
+  const btn = document.getElementById('showBtn');
+  btn.innerHTML = revealed
+    ? '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg> إخفاء المعلومات'
+    : '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> إظهار المعلومات';
+}
+</script>
 </body>
 </html>
