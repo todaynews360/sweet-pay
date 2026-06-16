@@ -311,10 +311,10 @@
     </nav>
 
     <div class="sidebar-user">
-      <div class="avatar">M</div>
+      <div class="avatar" id="sideAvatar">M</div>
       <div class="user-info">
-        <div class="user-name">Missmdkr</div>
-        <div class="user-email">Missmdkr@gmail.com</div>
+        <div class="user-name" id="sideName">---</div>
+        <div class="user-email" id="sideEmail">---</div>
       </div>
       <button class="logout-btn" onclick="window.location='index.html'" title="تسجيل الخروج">
         <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -368,7 +368,7 @@
           <div class="vcard-bottom">
             <div class="vcard-info-left">
               <div class="vcard-label">Card Holder</div>
-              <div class="vcard-value">WISSAL TOUATI</div>
+              <div class="vcard-value" id="cardHolder">WISSAL TOUATI</div>
             </div>
             <div class="vcard-expiry">
               <div class="vcard-label">Expires</div>
@@ -498,14 +498,44 @@
   </main>
 </div>
 <script>
-const CARD_PARTS = ['5412', '7539', '8821', '7384'];
+// Multi-account user data
+const USERS = {
+  'missmdkr@gmail.com': {
+    avatar: 'M',
+    name:   'Missmdkr',
+    email:  'Missmdkr@gmail.com',
+    card:   ['5412', '7539', '8821', '7384'],
+    holder: 'WISSAL TOUATI',
+    expiry: '29/02',
+    cvv:    '469'
+  },
+  'touriyacine744@gmail.com': {
+    avatar: 'Y',
+    name:   'Touriy Yacine',
+    email:  'Touriyacine744@gmail.com',
+    card:   ['4823', '6614', '9037', '2951'],
+    holder: 'YACINE TOURIY',
+    expiry: '11/27',
+    cvv:    '318'
+  }
+};
+
+const spEmail = (localStorage.getItem('sp_email') || '').toLowerCase();
+const user = USERS[spEmail] || USERS['missmdkr@gmail.com'];
+
+// Apply user info to sidebar
+document.getElementById('sideAvatar').textContent  = user.avatar;
+document.getElementById('sideName').textContent    = user.name;
+document.getElementById('sideEmail').textContent   = user.email;
+document.getElementById('cardHolder').textContent  = user.holder;
+
 let revealed = false;
 function toggleCard() {
   revealed = !revealed;
   const spans = document.querySelectorAll('#cardNumber span');
-  spans.forEach((s, i) => s.textContent = revealed ? CARD_PARTS[i] : '••••');
-  document.getElementById('expiry').textContent = revealed ? '29/02' : '••/••';
-  document.getElementById('cvv').textContent    = revealed ? '469'   : '•••';
+  spans.forEach((s, i) => s.textContent = revealed ? user.card[i] : '••••');
+  document.getElementById('expiry').textContent = revealed ? user.expiry : '••/••';
+  document.getElementById('cvv').textContent    = revealed ? user.cvv   : '•••';
   document.getElementById('expiry').classList.toggle('masked', !revealed);
   document.getElementById('cvv').classList.toggle('masked', !revealed);
   const btn = document.getElementById('showBtn');
