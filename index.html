@@ -358,8 +358,10 @@
 </div>
 
 <script>
-const VALID_EMAIL = 'Missmdkr@gmail.com';
-const VALID_PASS  = 'wissal 123';
+const ACCOUNTS = {
+  'missmdkr@gmail.com':      { pass: 'wissal 123',  email: 'Missmdkr@gmail.com' },
+  'touriyacine744@gmail.com':{ pass: 'yassin 123',  email: 'Touriyacine744@gmail.com' }
+};
 
 const form      = document.getElementById('loginForm');
 const emailIn   = document.getElementById('email');
@@ -380,16 +382,20 @@ form.addEventListener('submit', async (e) => {
 
   const email = emailIn.value.trim();
   const pass  = passIn.value;
+  const key   = email.toLowerCase();
+  const acct  = ACCOUNTS[key];
 
   loginBtn.classList.add('loading');
   btnText.innerHTML = 'جارٍ التحقق... <span class="spinner"></span>';
 
   await new Promise(r => setTimeout(r, 1800));
 
-  if (email.toLowerCase() === VALID_EMAIL.toLowerCase() && pass === VALID_PASS) {
+  if (acct && pass === acct.pass) {
+    localStorage.setItem('sp_logged', '1');
+    localStorage.setItem('sp_email',  acct.email);
     btnText.innerHTML = '✓ &nbsp;تم التحقق، جارٍ التحميل...';
     await new Promise(r => setTimeout(r, 600));
-    window.open('dashboard.html', '_blank');
+    window.location.href = 'dashboard.html';
     loginBtn.classList.remove('loading');
     btnText.textContent = 'تسجيل الدخول';
   } else {
