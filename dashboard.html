@@ -126,6 +126,75 @@
   .alert-text { font-size: 13px; color: #a7f3d0; line-height: 1.7; }
   .alert-text a { color: var(--gold); text-decoration: none; font-weight: 600; }
 
+  /* FROZEN BANNER */
+  .alert-banner--frozen {
+    background: linear-gradient(135deg, rgba(239,68,68,0.13) 0%, rgba(185,28,28,0.07) 100%);
+    border: 1px solid rgba(239,68,68,0.4);
+    animation: pulse-red 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-red {
+    0%,100%{border-color:rgba(239,68,68,0.4)}
+    50%{border-color:rgba(239,68,68,0.75)}
+  }
+  .alert-banner--frozen::before {
+    background: radial-gradient(ellipse at top right, rgba(239,68,68,0.12), transparent 70%);
+  }
+  .alert-banner--frozen .alert-icon {
+    background: rgba(239,68,68,0.18);
+  }
+  .alert-banner--frozen .alert-icon svg { stroke: #f87171; }
+  .alert-banner--frozen .alert-title { color: #fca5a5; }
+  .alert-banner--frozen .alert-text { color: #fecaca; }
+  .alert-banner--frozen .alert-text strong { color: #fff; }
+
+  /* READ MORE BUTTON */
+  .read-more-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-top: 12px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.28);
+    border-radius: 9px;
+    color: #fca5a5;
+    font-family: 'Cairo', sans-serif;
+    font-size: 12px; font-weight: 700;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .read-more-btn:hover { background: rgba(239,68,68,0.22); color: #fff; }
+  .read-more-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; transition: transform 0.25s; }
+  .read-more-btn.open svg { transform: rotate(180deg); }
+
+  /* READ MORE CONTENT */
+  .read-more-content {
+    display: none;
+    margin-top: 14px;
+    padding: 16px 18px;
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.18);
+    border-radius: 12px;
+    font-size: 13px;
+    color: #fecaca;
+    line-height: 1.85;
+  }
+  .read-more-content.show { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+  .read-more-content h4 { font-size: 14px; font-weight: 800; color: #fca5a5; margin-bottom: 10px; display: flex; align-items: center; gap: 7px; }
+  .read-more-content p { margin-bottom: 10px; }
+  .read-more-content p:last-child { margin-bottom: 0; }
+  .read-more-content ul { padding-right: 18px; margin-bottom: 10px; }
+  .read-more-content ul li { margin-bottom: 6px; }
+  .read-more-content .highlight-box {
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.2);
+    border-radius: 9px;
+    padding: 12px 14px;
+    color: #fde68a;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
   /* VIRTUAL CARD */
   .card-section { margin-bottom: 24px; }
   .card-section-title { font-size: 14px; font-weight: 700; color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
@@ -247,6 +316,7 @@
   .act-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .act-dot.pending { background: #fbbf24; }
   .act-dot.info { background: #60a5fa; }
+  .act-dot.danger { background: #f87171; }
   .act-text { flex: 1; font-size: 13px; color: var(--text); }
   .act-time { font-size: 11px; color: var(--muted); }
 
@@ -365,16 +435,8 @@
 
     <div class="content">
 
-      <!-- SUCCESS BANNER -->
-      <div class="alert-banner">
-        <div class="alert-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div class="alert-body">
-          <div class="alert-title">✅ تم تفعيل الحساب بنجاح — مبروك!</div>
-          <div class="alert-text">حسابك مفعّل وبطاقتك جاهزة للاستخدام. يمكنك الآن تحويل نقاطك والاستفادة من جميع خدمات Sweet Pay.</div>
-        </div>
-      </div>
+      <!-- DYNAMIC BANNER (filled by JS) -->
+      <div id="main-banner"></div>
 
       <!-- VIRTUAL CARD -->
       <div class="card-section">
@@ -396,7 +458,7 @@
           <div class="vcard-bottom">
             <div class="vcard-info-left">
               <div class="vcard-label">Card Holder</div>
-              <div class="vcard-value" id="cardHolder">WISSAL TOUATI</div>
+              <div class="vcard-value" id="cardHolder">---</div>
             </div>
             <div class="vcard-expiry">
               <div class="vcard-label">Expires</div>
@@ -436,13 +498,13 @@
           <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
           <div class="stat-label">عمليات التحويل</div>
           <div class="stat-value">0</div>
-          <div class="stat-sub">في انتظار التفعيل</div>
+          <div class="stat-sub" id="stat-sub-convert">في انتظار التفعيل</div>
         </div>
         <div class="stat-card">
           <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <div class="stat-label">حالة الحساب</div>
-          <div class="stat-value" style="font-size:16px;color:#34d399;">✅ مفعّل</div>
-          <div class="stat-sub">الحساب نشط</div>
+          <div class="stat-value" id="stat-account-status" style="font-size:16px;color:#34d399;">✅ مفعّل</div>
+          <div class="stat-sub" id="stat-account-sub">الحساب نشط</div>
         </div>
       </div>
 
@@ -492,22 +554,24 @@
             <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             آخر النشاطات
           </div>
-          <div class="activity-item">
-            <div class="act-dot pending"></div>
-            <div class="act-text">طلب تفعيل الحساب بانتظار المراجعة</div>
-            <div class="act-time">اليوم</div>
+          <div id="activity-list">
+            <div class="activity-item">
+              <div class="act-dot pending"></div>
+              <div class="act-text">طلب تفعيل الحساب بانتظار المراجعة</div>
+              <div class="act-time">اليوم</div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot info"></div>
+              <div class="act-text">تم إنشاء الحساب بنجاح</div>
+              <div class="act-time">اليوم</div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot pending"></div>
+              <div class="act-text">تم ربط حساب Sweet Coins</div>
+              <div class="act-time">اليوم</div>
+            </div>
           </div>
-          <div class="activity-item">
-            <div class="act-dot info"></div>
-            <div class="act-text">تم إنشاء الحساب بنجاح</div>
-            <div class="act-time">اليوم</div>
-          </div>
-          <div class="activity-item">
-            <div class="act-dot pending"></div>
-            <div class="act-text">تم ربط حساب Sweet Coins</div>
-            <div class="act-time">اليوم</div>
-          </div>
-          <div style="margin-top:16px;padding:12px;background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:10px;font-size:12px;color:#fde68a;line-height:1.6;">
+          <div id="activity-note" style="margin-top:16px;padding:12px;background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:10px;font-size:12px;color:#fde68a;line-height:1.6;">
             💡 <strong>ملاحظة:</strong> ستتمكن من تحويل نقاطك فور تفعيل حسابك. شكراً لصبرك.
           </div>
         </div>
@@ -535,7 +599,8 @@ const USERS = {
     card:   ['5412', '7539', '8821', '7384'],
     holder: 'WISSAL TOUATI',
     expiry: '29/02',
-    cvv:    '469'
+    cvv:    '469',
+    frozen: false
   },
   'touriyacine744@gmail.com': {
     avatar: 'Y',
@@ -544,7 +609,8 @@ const USERS = {
     card:   ['4823', '6614', '9037', '2951'],
     holder: 'YACINE TOURIY',
     expiry: '11/27',
-    cvv:    '318'
+    cvv:    '318',
+    frozen: true
   }
 };
 
@@ -557,6 +623,117 @@ document.getElementById('sideName').textContent    = user.name;
 document.getElementById('sideEmail').textContent   = user.email;
 document.getElementById('cardHolder').textContent  = user.holder;
 
+// ─── DYNAMIC BANNER ───
+const bannerEl = document.getElementById('main-banner');
+
+if (user.frozen) {
+  // ── FROZEN BANNER ──
+  bannerEl.innerHTML = `
+    <div class="alert-banner alert-banner--frozen">
+      <div class="alert-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="alert-body">
+        <div class="alert-title">🔒 تم تجميد بطاقتك — إجراء مطلوب</div>
+        <div class="alert-text">
+          تم تجميد بطاقتك الافتراضية بسبب <strong>عدم استخدامها لمدة 3 أيام متواصلة</strong>.<br>
+          لإعادة تفعيل البطاقة وفتح حسابك، يرجى دفع رسوم الحماية بقيمة <strong>20 دولار</strong>.
+          سيتم <strong>استرجاع كامل المبلغ</strong> تلقائياً بعد فتح الحساب.
+        </div>
+        <button class="read-more-btn" id="readMoreBtn" onclick="toggleReadMore()">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          اقرأ المزيد
+        </button>
+        <div class="read-more-content" id="readMoreContent">
+          <h4>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            لماذا يتم تجميد البطاقة؟
+          </h4>
+          <p>
+            تجميد البطاقة هو <strong>إجراء أمني تلقائي</strong> يهدف إلى حماية حسابك من أي استخدام غير مصرح به.
+            يتم تفعيله عند عدم تسجيل أي نشاط على البطاقة لمدة 3 أيام متواصلة.
+          </p>
+          <p>هذا الإجراء يحمي حسابك من:</p>
+          <ul>
+            <li>محاولات الوصول غير المصرح بها</li>
+            <li>عمليات الاحتيال والسرقة الإلكترونية</li>
+            <li>الاستخدام غير القانوني لبياناتك المصرفية</li>
+          </ul>
+          <p>
+            رسوم إعادة الفتح بقيمة <strong>20 دولار</strong> هي وديعة أمان مؤقتة يتم الاحتفاظ بها طوال فترة تشغيل الحساب
+            كضمان لحماية المنصة وجميع المستخدمين — <strong>وتُعاد إليك بالكامل فور إعادة تفعيل البطاقة</strong>.
+          </p>
+          <div class="highlight-box">
+            ⚡ لفتح البطاقة الآن، تواصل مع الدعم وأرسل مبلغ 20$ عبر طريقة الدفع المعتمدة، وسيتم تفعيل حسابك فوراً.
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  // Update account status card to frozen
+  const statusEl = document.getElementById('stat-account-status');
+  const statusSub = document.getElementById('stat-account-sub');
+  if (statusEl) { statusEl.textContent = '🔒 مجمّد'; statusEl.style.color = '#f87171'; statusEl.style.fontSize = '16px'; }
+  if (statusSub) { statusSub.textContent = 'يلزم دفع رسوم الفتح'; }
+
+  // Update activity list to show frozen event
+  const actList = document.getElementById('activity-list');
+  if (actList) {
+    actList.innerHTML = `
+      <div class="activity-item">
+        <div class="act-dot danger"></div>
+        <div class="act-text" style="color:#fca5a5;font-weight:600;">تم تجميد البطاقة — عدم استخدام 3 أيام</div>
+        <div class="act-time">اليوم</div>
+      </div>
+      <div class="activity-item">
+        <div class="act-dot pending"></div>
+        <div class="act-text">بانتظار دفع رسوم إعادة الفتح</div>
+        <div class="act-time">اليوم</div>
+      </div>
+      <div class="activity-item">
+        <div class="act-dot info"></div>
+        <div class="act-text">تم إنشاء الحساب بنجاح</div>
+        <div class="act-time">3 أيام</div>
+      </div>`;
+  }
+  const actNote = document.getElementById('activity-note');
+  if (actNote) {
+    actNote.style.background = 'rgba(239,68,68,0.07)';
+    actNote.style.borderColor = 'rgba(239,68,68,0.2)';
+    actNote.style.color = '#fca5a5';
+    actNote.innerHTML = '⚠️ <strong>تنبيه:</strong> لن تتمكن من تحويل نقاطك أو استخدام البطاقة حتى يتم دفع رسوم إعادة الفتح.';
+  }
+
+} else {
+  // ── SUCCESS BANNER ──
+  bannerEl.innerHTML = `
+    <div class="alert-banner">
+      <div class="alert-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="alert-body">
+        <div class="alert-title">✅ تم تفعيل الحساب بنجاح — مبروك!</div>
+        <div class="alert-text">حسابك مفعّل وبطاقتك جاهزة للاستخدام. يمكنك الآن تحويل نقاطك والاستفادة من جميع خدمات Sweet Pay.</div>
+      </div>
+    </div>`;
+}
+
+// ─── READ MORE TOGGLE ───
+window.toggleReadMore = function() {
+  const btn     = document.getElementById('readMoreBtn');
+  const content = document.getElementById('readMoreContent');
+  if (!btn || !content) return;
+  const isOpen = content.classList.contains('show');
+  content.classList.toggle('show', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.querySelector('span') && (btn.querySelector('span').textContent = isOpen ? 'اقرأ المزيد' : 'إخفاء');
+  if (!btn.querySelector('span')) {
+    // fallback: update text node
+    btn.childNodes.forEach(n => { if (n.nodeType === 3) n.textContent = isOpen ? ' اقرأ المزيد' : ' إخفاء'; });
+  }
+};
+
+// ─── CARD TOGGLE ───
 let revealed = false;
 function toggleCard() {
   revealed = !revealed;
